@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>AADSTS Error Codes — Microsoft Entra ID Reference | aboutcloud.io</title>
+<meta name="description" content="Free community AADSTS error code lookup for Microsoft Entra ID. Search by code, scenario or plain English. Severity classification, Conditional Access trigger detection, fix hints — auto-updated from Microsoft Learn." />
+<meta name="keywords" content="AADSTS error codes, Entra ID errors, Microsoft Entra authentication errors, Conditional Access errors, AADSTS lookup, AADSTS50058, AADSTS53003, AADSTS50076, sign-in error codes, Azure AD errors" />
+
+<link rel="canonical" href="https://entraerrors.aboutcloud.io" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://entraerrors.aboutcloud.io" />
+<meta property="og:title" content="AADSTS Error Codes — Microsoft Entra ID Reference" />
+<meta property="og:description" content="Free community AADSTS error code lookup. Severity, fix hints, Conditional Access trigger detection. Auto-updated from Microsoft Learn." />
+<meta property="og:image" content="https://images.aboutcloud.io/2026/04/MicrosoftEntra_Logo_1200x627.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="627" />
+<meta property="og:site_name" content="aboutcloud.io" />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@aboutcloudio" />
+<meta name="twitter:title" content="AADSTS Error Codes — Microsoft Entra ID Reference" />
+<meta name="twitter:description" content="Free community AADSTS error code lookup. Severity, fix hints, CA trigger detection. Auto-updated from Microsoft Learn." />
+<meta name="twitter:image" content="https://images.aboutcloud.io/2026/04/MicrosoftEntra_Logo_1200x627.png" />
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Entra ID AADSTS Error Code Reference",
+  "alternateName": "AADSTS Error Lookup",
+  "url": "https://entraerrors.aboutcloud.io",
+  "description": "Community AADSTS error code reference for Microsoft Entra ID. Search by code, scenario or plain English. Every error classified by severity, who needs to act, and whether Conditional Access triggered it.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Web",
+  "isAccessibleForFree": true,
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "aboutcloud.io",
+    "url": "https://aboutcloud.io"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "aboutcloud.io",
+    "url": "https://aboutcloud.io"
+  },
+  "keywords": "AADSTS, Entra ID, Microsoft Entra, error codes, Conditional Access, authentication errors",
+  "about": {
+    "@type": "Thing",
+    "name": "Microsoft Entra ID",
+    "sameAs": "https://learn.microsoft.com/en-us/entra/identity-platform/reference-error-codes"
+  }
+}
+</script>
+
+<link rel="icon" type="image/png" href="https://images.aboutcloud.io/2026/03/Logo_Aboutcloud-2_o.png" />
+<link rel="shortcut icon" href="https://images.aboutcloud.io/2026/03/Logo_Aboutcloud-2_o.png" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/7.0.0/fuse.min.js"></script>
+<script defer src="https://analytics.aboutcloud.io/script.js" data-website-id="66e36b84-0ebd-4ba5-bf04-347aab3cdf25"></script>
+
+<style>
+:root {
+  --bg:        #060c18;
+  --surface:   #0d1826;
+  --surface2:  #122030;
+  --surface3:  #18293d;
+  --border:    rgba(255,255,255,0.07);
+  --border2:   rgba(255,255,255,0.13);
+  --border3:   rgba(255,255,255,0.22);
+  --entra:     #0078d4;
+  --entra-lt:  #2899f5;
+  --entra-dim: rgba(0,120,212,0.13);
+  --entra-glow:rgba(0,120,212,0.28);
+  --azure:     #00b4d8;
+  --text:      #dce7f5;
+  --text2:     #8ca0bc;
+  --text3:     #4a6080;
+  --user:  #10b981; --user-bg:  rgba(16,185,129,0.12);
+  --admin: #f59e0b; --admin-bg: rgba(245,158,11,0.12);
+  --dev:   #8b5cf6; --dev-bg:   rgba(139,92,246,0.12);
+  --ms:    #64748b; --ms-bg:    rgba(100,116,139,0.12);
+  --ca:    #ef4444; --ca-bg:    rgba(239,68,68,0.12);
+  --r: 10px; --r-lg: 16px;
+  --fd: 'Chakra Petch', sans-serif;
+  --fb: 'DM Sans', sans-serif;
+  --fm: 'DM Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--fb);
+  font-size: 17px;
+  line-height: 1.65;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,120,212,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,120,212,0.025) 1px, transparent 1px);
+  background-size: 52px 52px;
+  pointer-events: none; z-index: 0;
+}
+
+/* ── HEADER ─────────────────────────────────────────────────────────────────── */
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(6,12,24,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border2);
+}
+
+.hdr {
+  max-width: 1400px; margin: 0 auto;
+  padding: 0 48px;
+  height: 88px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.brand { display: flex; align-items: center; gap: 22px; text-decoration: none; }
+
+.brand-logo { height: 60px; width: auto; }
+
+.brand-sep { width: 1px; height: 40px; background: var(--border3); }
+
+.brand-info { display: flex; flex-direction: column; gap: 5px; }
+
+.brand-name {
+  font-family: var(--fd);
+  font-size: 1.45rem; font-weight: 600;
+  color: var(--text); letter-spacing: 0.01em; line-height: 1;
+}
+
+.brand-sub {
+  font-family: var(--fm); font-size: 12px;
+  color: var(--entra-lt); letter-spacing: 0.08em;
+  text-transform: uppercase; line-height: 1;
+}
+
+nav { display: flex; align-items: center; gap: 6px; }
+
+nav a {
+  font-size: 15px; color: var(--text2);
+  text-decoration: none; padding: 9px 18px;
+  border-radius: 8px; transition: all 0.15s;
+}
+
+nav a:hover { color: var(--text); background: var(--surface2); }
+
+nav .cta {
+  color: var(--entra-lt);
+  border: 1px solid rgba(0,120,212,0.35);
+  background: var(--entra-dim);
+}
+nav .cta:hover { background: rgba(0,120,212,0.22); }
+
+/* ── HERO ────────────────────────────────────────────────────────────────────── */
+.hero {
+  position: relative; z-index: 1;
+  padding: 80px 48px 64px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero::before {
+  content: '';
+  position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
+  width: 900px; height: 500px;
+  background: radial-gradient(ellipse, rgba(0,120,212,0.11) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.pill {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--fm); font-size: 12px; letter-spacing: 0.07em;
+  text-transform: uppercase; color: var(--entra-lt);
+  background: var(--entra-dim); border: 1px solid rgba(0,120,212,0.22);
+  padding: 8px 20px; border-radius: 40px;
+  margin-bottom: 32px;
+  opacity: 0; animation: up 0.5s ease forwards;
+}
+
+.pill-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--entra-lt); animation: blink 2.5s infinite;
+}
+
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+h1 {
+  font-family: var(--fd);
+  font-size: clamp(3.4rem, 6.5vw, 5.6rem);
+  font-weight: 700; letter-spacing: -0.025em; line-height: 1.06;
+  margin-bottom: 26px;
+  opacity: 0; animation: up 0.5s 0.1s ease forwards;
+}
+
+h1 em {
+  font-style: normal;
+  background: linear-gradient(120deg, var(--entra-lt), var(--azure));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sub {
+  font-size: 1.15rem; font-weight: 300; color: var(--text2);
+  max-width: 620px; margin: 0 auto 52px; line-height: 1.8;
+  opacity: 0; animation: up 0.5s 0.2s ease forwards;
+}
+
+/* ── STATS ───────────────────────────────────────────────────────────────────── */
+.stats {
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 52px;
+  opacity: 0; animation: up 0.5s 0.3s ease forwards;
+}
+
+.sc {
+  display: flex; flex-direction: column; align-items: center;
+  min-width: 170px; padding: 28px 44px;
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: var(--r-lg);
+  transition: border-color 0.2s, transform 0.2s;
+}
+.sc:hover { border-color: var(--border3); transform: translateY(-2px); }
+
+.sc-n {
+  font-family: var(--fd);
+  font-size: 3.4rem; font-weight: 700;
+  letter-spacing: -0.03em; line-height: 1;
+}
+.sc-l {
+  font-family: var(--fm); font-size: 12px;
+  color: var(--text3); text-transform: uppercase;
+  letter-spacing: 0.08em; margin-top: 10px;
+}
+.sc.tot .sc-n { color: var(--entra-lt); }
+.sc.usr .sc-n { color: var(--user); }
+.sc.adm .sc-n { color: var(--admin); }
+.sc.dev .sc-n { color: var(--dev); }
+.sc.ca  .sc-n { color: var(--ca); }
+
+/* ── SEARCH ──────────────────────────────────────────────────────────────────── */
+.swrap {
+  max-width: 780px; margin: 0 auto;
+  position: relative;
+  opacity: 0; animation: up 0.5s 0.35s ease forwards;
+}
+
+.sico {
+  position: absolute; left: 24px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--text3); font-size: 20px; pointer-events: none;
+}
+
+#q {
+  width: 100%;
+  padding: 24px 64px 24px 66px;
+  background: var(--surface2);
+  border: 1.5px solid var(--border2);
+  border-radius: var(--r-lg);
+  color: var(--text); font-family: var(--fb); font-size: 1.15rem;
+  outline: none; transition: all 0.2s;
+}
+#q::placeholder { color: var(--text3); }
+#q:focus {
+  border-color: var(--entra);
+  background: var(--surface3);
+  box-shadow: 0 0 0 4px var(--entra-glow);
+}
+
+.sclear {
+  position: absolute; right: 20px; top: 50%;
+  transform: translateY(-50%);
+  background: none; border: none; color: var(--text3);
+  cursor: pointer; padding: 6px 8px; border-radius: 6px;
+  font-size: 16px; display: none; transition: color 0.15s;
+}
+.sclear:hover { color: var(--text); }
+.sclear.on { display: block; }
+
+.stips {
+  margin-top: 14px; font-size: 13.5px; color: var(--text3); text-align: center;
+}
+.stips kbd {
+  font-family: var(--fm); font-size: 12px;
+  background: var(--surface); border: 1px solid var(--border2);
+  padding: 3px 10px; border-radius: 5px; color: var(--text2);
+}
+
+/* ── LAYOUT ──────────────────────────────────────────────────────────────────── */
+.wrap {
+  position: relative; z-index: 1;
+  max-width: 1400px; margin: 0 auto;
+  padding: 40px 48px 100px;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 40px; align-items: start;
+}
+
+/* ── SIDEBAR ─────────────────────────────────────────────────────────────────── */
+.side { position: sticky; top: 96px; }
+
+.side-sec { margin-bottom: 32px; }
+
+.side-lbl {
+  font-family: var(--fm); font-size: 11px; font-weight: 500;
+  color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 0 8px; margin-bottom: 10px;
+}
+
+.fb {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; padding: 11px 14px; gap: 10px;
+  background: none; border: none; border-radius: var(--r);
+  color: var(--text2); font-family: var(--fb); font-size: 15.5px;
+  cursor: pointer; text-align: left; transition: all 0.15s;
+}
+.fb:hover { background: var(--surface2); color: var(--text); }
+.fb.on { background: var(--entra-dim); color: var(--entra-lt); font-weight: 500; }
+
+.fb-in { display: flex; align-items: center; gap: 10px; flex: 1; }
+
+.sd {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+.sd.u { background: var(--user); }
+.sd.a { background: var(--admin); }
+.sd.d { background: var(--dev); }
+.sd.m { background: var(--ms); }
+
+.fc {
+  font-family: var(--fm); font-size: 11px; color: var(--text3);
+  background: var(--surface2); padding: 2px 8px;
+  border-radius: 12px; min-width: 28px; text-align: center;
+}
+.fb.on .fc { background: rgba(0,120,212,0.22); color: var(--entra-lt); }
+
+/* ── RESULTS PANEL ───────────────────────────────────────────────────────────── */
+.panel {}
+
+.rhdr {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px; padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.rcnt {
+  font-family: var(--fm); font-size: 13px; color: var(--text3);
+}
+.rcnt strong { color: var(--text2); font-weight: 500; }
+
+.ssel {
+  background: var(--surface); border: 1px solid var(--border2);
+  color: var(--text2); font-family: var(--fm); font-size: 12px;
+  padding: 7px 14px; border-radius: var(--r); outline: none; cursor: pointer;
+}
+
+/* ── SYNC BAR ────────────────────────────────────────────────────────────────── */
+.cl-bar {
+  background: rgba(245,158,11,0.06);
+  border: 1px solid rgba(245,158,11,0.15);
+  border-radius: var(--r); padding: 11px 18px;
+  font-size: 13.5px; color: var(--text2);
+  margin-bottom: 14px; display: none; line-height: 1.5;
+}
+
+.sync-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 10px;
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: var(--r); padding: 12px 18px;
+  margin-bottom: 16px;
+  font-family: var(--fm); font-size: 12px;
+  transition: border-color 0.3s;
+}
+.sync-bar.ok    { border-color: rgba(16,185,129,0.28); }
+.sync-bar.error { border-color: rgba(239,68,68,0.28); }
+
+.sync-l {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 10px; color: var(--text2);
+}
+
+.sync-ind {
+  display: flex; align-items: center; gap: 8px; font-weight: 500;
+}
+
+.sync-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--text3); position: relative; flex-shrink: 0;
+  transition: background 0.3s;
+}
+.sync-bar.ok .sync-dot { background: var(--user); }
+.sync-bar.ok .sync-dot::after {
+  content: ''; position: absolute; inset: -3px;
+  border-radius: 50%; background: rgba(16,185,129,0.3);
+  animation: ripple 2s infinite;
+}
+.sync-bar.error .sync-dot { background: var(--ca); }
+
+@keyframes ripple {
+  0%   { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+#syncStatus { color: var(--text); }
+.sync-bar.ok    #syncStatus { color: var(--user); }
+.sync-bar.error #syncStatus { color: var(--ca); }
+
+.sync-sep  { color: var(--text3); }
+.sync-time { color: var(--text2); }
+.sync-freq { color: var(--text3); }
+.sync-src  {
+  font-family: var(--fm); font-size: 11.5px; color: var(--entra);
+  text-decoration: none; opacity: 0.8; transition: opacity 0.15s;
+  white-space: nowrap;
+}
+.sync-src:hover { opacity: 1; text-decoration: underline; }
+
+/* ── CARDS ───────────────────────────────────────────────────────────────────── */
+.grid { display: flex; flex-direction: column; gap: 8px; }
+
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r); overflow: hidden;
+  cursor: pointer; transition: all 0.18s;
+  opacity: 0; transform: translateY(6px);
+  animation: cin 0.28s ease forwards;
+}
+.card:hover {
+  border-color: var(--border2); background: var(--surface2);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 28px rgba(0,0,0,0.35);
+}
+.card.open { border-color: rgba(0,120,212,0.45); }
+
+.chdr {
+  display: grid;
+  grid-template-columns: 190px 1fr auto auto;
+  align-items: center; gap: 22px;
+  padding: 20px 24px;
+}
+
+.ccode {
+  font-family: var(--fm); font-size: 14px; font-weight: 500;
+  color: var(--entra-lt); background: var(--entra-dim);
+  padding: 6px 15px; border-radius: 7px;
+  white-space: nowrap; letter-spacing: 0.02em; flex-shrink: 0;
+}
+
+.ctitle {
+  font-size: 16px; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.bdgs { display: flex; gap: 7px; align-items: center; flex-shrink: 0; }
+
+.bdg {
+  font-family: var(--fm); font-size: 11px; font-weight: 500;
+  padding: 4px 11px; border-radius: 20px; white-space: nowrap;
+}
+.bdg.u { color:var(--user);  background:var(--user-bg);  border:1px solid rgba(16,185,129,0.2); }
+.bdg.a { color:var(--admin); background:var(--admin-bg); border:1px solid rgba(245,158,11,0.2); }
+.bdg.d { color:var(--dev);   background:var(--dev-bg);   border:1px solid rgba(139,92,246,0.2); }
+.bdg.m { color:var(--ms);    background:var(--ms-bg);    border:1px solid rgba(100,116,139,0.2); }
+.bdg.ca{ color:var(--ca);    background:var(--ca-bg);    border:1px solid rgba(239,68,68,0.2); }
+
+.chev { color:var(--text3); font-size:12px; transition:transform 0.2s; flex-shrink:0; }
+.card.open .chev { transform:rotate(180deg); }
+
+/* ── CARD BODY ───────────────────────────────────────────────────────────────── */
+.cbody {
+  display: none; padding: 0 22px 22px;
+  border-top: 1px solid var(--border);
+}
+.card.open .cbody { display: block; }
+
+.bgrid {
+  padding-top: 22px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 22px;
+}
+
+.dl { display: flex; flex-direction: column; gap: 6px; }
+.dl.full { grid-column: 1 / -1; }
+
+.dl-l {
+  font-family: var(--fm); font-size: 11px; color: var(--text3);
+  text-transform: uppercase; letter-spacing: 0.09em;
+}
+
+.dl-v { font-size: 15.5px; color: var(--text); line-height: 1.6; }
+
+.fix {
+  background: rgba(0,120,212,0.06);
+  border: 1px solid rgba(0,120,212,0.16);
+  border-left: 3px solid var(--entra);
+  padding: 15px 20px; border-radius: 0 var(--r) var(--r) 0;
+  font-size: 15.5px; color: var(--text2); line-height: 1.65;
+}
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+
+.tag {
+  font-family: var(--fm); font-size: 11px; color: var(--text3);
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+  padding: 3px 10px; border-radius: 20px;
+}
+
+/* ── EMPTY / LOADING ─────────────────────────────────────────────────────────── */
+.ph {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 80px 20px; gap: 18px; color: var(--text3); text-align: center;
+}
+.loader {
+  width: 40px; height: 40px;
+  border: 2.5px solid var(--border2);
+  border-top-color: var(--entra);
+  border-radius: 50%; animation: spin 0.8s linear infinite;
+}
+
+/* ── FOOTER ──────────────────────────────────────────────────────────────────── */
+footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 24px 48px;
+}
+.ftr {
+  max-width: 1400px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+}
+.ftr-l { font-size: 13px; color: var(--text3); }
+.ftr-l a { color: var(--entra); text-decoration: none; }
+.ftr-l a:hover { text-decoration: underline; }
+.ftr-r { font-family: var(--fm); font-size: 12px; color: var(--text3); }
+
+/* ── ANIMATIONS ──────────────────────────────────────────────────────────────── */
+@keyframes up  { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+@keyframes cin { from{opacity:0;transform:translateY(6px)}  to{opacity:1;transform:translateY(0)} }
+@keyframes spin { to{transform:rotate(360deg)} }
+
+/* ── RESPONSIVE ──────────────────────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .hdr  { padding: 0 32px; }
+  .hero { padding: 64px 32px 52px; }
+  .wrap { padding: 36px 32px 80px; grid-template-columns: 260px 1fr; gap: 32px; }
+  footer { padding: 22px 32px; }
+}
+
+@media (max-width: 820px) {
+  .hdr { height: 68px; padding: 0 24px; }
+  .brand-logo { height: 40px; }
+  .brand-name { font-size: 1.1rem; }
+  .brand-sub  { display: none; }
+  nav { display: none; }
+  .hero { padding: 52px 24px 44px; }
+  h1 { font-size: 2.4rem; }
+  .sub { font-size: 1rem; margin-bottom: 36px; }
+  .sc { padding: 18px 24px; min-width: 120px; }
+  .sc-n { font-size: 2.4rem; }
+  #q { padding: 18px 52px 18px 54px; font-size: 1rem; }
+  .wrap { grid-template-columns: 1fr; padding: 24px 24px 60px; gap: 24px; }
+  .side { position: static; display: flex; flex-wrap: wrap; gap: 8px 28px; }
+  .side-sec { margin-bottom: 0; }
+  .chdr { grid-template-columns: auto 1fr auto; gap: 12px; padding: 16px 18px; }
+  .bdgs { display: none; }
+  .bgrid { grid-template-columns: 1fr; gap: 18px; }
+  .cbody { padding: 0 18px 18px; }
+  footer { padding: 18px 24px; }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 1.9rem; }
+  .stats { gap: 10px; }
+  .sc { min-width: calc(50% - 8px); flex: 1 1 auto; padding: 16px 12px; }
+  .sc-n { font-size: 2rem; }
+  .pill { font-size: 10.5px; }
+  .stips { font-size: 12px; }
+  .hdr { padding: 0 16px; }
+  .hero { padding: 40px 16px 36px; }
+  .wrap { padding: 20px 16px 60px; }
+  footer { padding: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="hdr">
+    <a href="https://aboutcloud.io" class="brand">
+      <img src="https://images.aboutcloud.io/2026/04/MicrosoftEntra_Logo_1200x627.png"
+           alt="Microsoft Entra" class="brand-logo" />
+      <div class="brand-sep"></div>
+      <div class="brand-info">
+        <span class="brand-name">Error Reference</span>
+        <span class="brand-sub">Community · aboutcloud.io</span>
+      </div>
+    </a>
+    <nav>
+      <a href="https://tracker.aboutcloud.io" target="_blank">Change Tracker</a>
+      <a href="https://aboutcloud.io/tag/entra-id/" target="_blank">Blog</a>
+      <a href="https://learn.microsoft.com/en-us/entra/identity-platform/reference-error-codes"
+         target="_blank" class="cta">MS Docs ↗</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="pill"><div class="pill-dot"></div>Auto-updated from Microsoft Learn &nbsp;·&nbsp; Community enriched</div>
+  <h1>AADSTS Error Codes<br /><em>decoded for humans</em></h1>
+  <p class="sub">Search by code, scenario, or plain English. Every AADSTS code classified by severity, who needs to act, and whether Conditional Access triggered it.</p>
+
+  <div class="stats">
+    <div class="sc tot"><span class="sc-n" id="sTotal">—</span><span class="sc-l">Total</span></div>
+    <div class="sc usr"><span class="sc-n" id="sUser">—</span><span class="sc-l">User Action</span></div>
+    <div class="sc adm"><span class="sc-n" id="sAdmin">—</span><span class="sc-l">Admin Config</span></div>
+    <div class="sc dev"><span class="sc-n" id="sDev">—</span><span class="sc-l">App / Dev</span></div>
+    <div class="sc ca"><span class="sc-n" id="sCA">—</span><span class="sc-l">CA Triggers</span></div>
+  </div>
+
+  <div class="swrap">
+    <span class="sico">⌕</span>
+    <input id="q" type="text"
+           placeholder="Search by code, scenario or description…  e.g. 'guest sign-in', 'AADSTS53003', 'device compliance'"
+           autocomplete="off" spellcheck="false" />
+    <button class="sclear" id="qx" title="Clear">✕</button>
+  </div>
+  <p class="stips">Try: <kbd>conditional access</kbd> &nbsp; <kbd>mfa enrollment</kbd> &nbsp; <kbd>device compliance</kbd> &nbsp; <kbd>password expired</kbd> &nbsp;&nbsp; Press <kbd>/</kbd> to focus</p>
+</section>
+
+<!-- MAIN -->
+<div class="wrap">
+
+  <!-- Sidebar -->
+  <aside class="side">
+    <div class="side-sec">
+      <div class="side-lbl">Severity</div>
+      <button class="fb on" data-f="sev" data-v="all" onclick="filt('sev','all')">
+        <span class="fb-in">All severities</span><span class="fc" id="fc-all">—</span>
+      </button>
+      <button class="fb" data-f="sev" data-v="user-error" onclick="filt('sev','user-error')">
+        <span class="fb-in"><span class="sd u"></span>User Action</span><span class="fc" id="fc-ue">—</span>
+      </button>
+      <button class="fb" data-f="sev" data-v="admin-config" onclick="filt('sev','admin-config')">
+        <span class="fb-in"><span class="sd a"></span>Admin Config</span><span class="fc" id="fc-ac">—</span>
+      </button>
+      <button class="fb" data-f="sev" data-v="developer" onclick="filt('sev','developer')">
+        <span class="fb-in"><span class="sd d"></span>App / Dev</span><span class="fc" id="fc-dv">—</span>
+      </button>
+      <button class="fb" data-f="sev" data-v="microsoft-side" onclick="filt('sev','microsoft-side')">
+        <span class="fb-in"><span class="sd m"></span>Microsoft Side</span><span class="fc" id="fc-ms">—</span>
+      </button>
+    </div>
+
+    <div class="side-sec">
+      <div class="side-lbl">Scenario</div>
+      <button class="fb" data-f="sc" data-v="conditional-access" onclick="filt('sc','conditional-access')">
+        <span class="fb-in">🔒 Conditional Access</span><span class="fc" id="fsc-ca">—</span>
+      </button>
+      <button class="fb" data-f="sc" data-v="mfa" onclick="filt('sc','mfa')">
+        <span class="fb-in">📱 MFA / Strong Auth</span><span class="fc" id="fsc-mfa">—</span>
+      </button>
+      <button class="fb" data-f="sc" data-v="device-compliance" onclick="filt('sc','device-compliance')">
+        <span class="fb-in">💻 Device Compliance</span><span class="fc" id="fsc-dev">—</span>
+      </button>
+      <button class="fb" data-f="sc" data-v="b2b" onclick="filt('sc','b2b')">
+        <span class="fb-in">👤 B2B / Guest</span><span class="fc" id="fsc-b2b">—</span>
+      </button>
+      <button class="fb" data-f="sc" data-v="token" onclick="filt('sc','token')">
+        <span class="fb-in">🔑 Token Issues</span><span class="fc" id="fsc-tok">—</span>
+      </button>
+      <button class="fb" data-f="sc" data-v="consent" onclick="filt('sc','consent')">
+        <span class="fb-in">✅ Consent / Perms</span><span class="fc" id="fsc-con">—</span>
+      </button>
+      <button class="fb" data-f="sc" data-v="hybrid" onclick="filt('sc','hybrid')">
+        <span class="fb-in">🔗 Hybrid Identity</span><span class="fc" id="fsc-hyb">—</span>
+      </button>
+      <button class="fb" data-f="sc" data-v="identity-protection" onclick="filt('sc','identity-protection')">
+        <span class="fb-in">🛡️ Identity Protection</span><span class="fc" id="fsc-ip">—</span>
+      </button>
+    </div>
+
+    <div class="side-sec">
+      <div class="side-lbl">Special</div>
+      <button class="fb" data-f="ca" data-v="true" onclick="filt('ca','true')" style="color:var(--ca)">
+        <span class="fb-in">⚡ CA Triggers only</span><span class="fc" id="fsc-catrig">—</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Results -->
+  <div class="panel">
+    <div class="cl-bar" id="clBar"></div>
+
+    <div class="sync-bar" id="syncBar">
+      <div class="sync-l">
+        <span class="sync-ind">
+          <span class="sync-dot" id="syncDot"></span>
+          <span id="syncStatus">Checking…</span>
+        </span>
+        <span class="sync-sep">·</span>
+        <span id="syncTime" class="sync-time"></span>
+        <span class="sync-sep">·</span>
+        <span class="sync-freq">Auto-updates every 6 hours</span>
+      </div>
+      <a href="https://learn.microsoft.com/en-us/entra/identity-platform/reference-error-codes"
+         target="_blank" class="sync-src">Source: Microsoft Learn ↗</a>
+    </div>
+
+    <div class="rhdr">
+      <div class="rcnt">Showing <strong id="rCount">—</strong> codes</div>
+      <select class="ssel" id="sortSel" onchange="render()">
+        <option value="code">Sort: Code ↑</option>
+        <option value="sev">Sort: Severity</option>
+      </select>
+    </div>
+
+    <div class="grid" id="grid">
+      <div class="ph"><div class="loader"></div><span>Loading error codes…</span></div>
+    </div>
+
+    <div class="ph" id="empty" style="display:none">
+      <div style="font-size:2.5rem">🔍</div>
+      <div style="font-family:var(--fd);font-size:1.2rem;color:var(--text2)">No codes found</div>
+      <div>Try a different search term or clear your filters</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ftr">
+    <div class="ftr-l">
+      Built by <a href="https://aboutcloud.io" target="_blank">aboutcloud.io</a> ·
+      Data from <a href="https://learn.microsoft.com/en-us/entra/identity-platform/reference-error-codes"
+        target="_blank">Microsoft Learn</a> · Not affiliated with Microsoft
+    </div>
+    <div class="ftr-r" id="syncLbl"></div>
+  </div>
+</footer>
+
+<script>
+const API = "https://api.aboutcloud.io/entra-errors";
+let ALL = [], fuse = null;
+let AF = { sev: "all", sc: null, ca: null };
+let searchQ = "";
+
+const SEV = {
+  "user-error":     { lbl: "User Action",    cls: "u", who: "👤 User needs to act" },
+  "admin-config":   { lbl: "Admin Config",   cls: "a", who: "🔧 Admin needs to fix" },
+  "developer":      { lbl: "App / Dev",      cls: "d", who: "💻 Dev / App fix required" },
+  "microsoft-side": { lbl: "Microsoft Side", cls: "m", who: "⏳ Microsoft-side — retry" }
+};
+
+async function load() {
+  try {
+    const [dR, sR, cR] = await Promise.all([
+      fetch(API), fetch(`${API}/stats`), fetch(`${API}/changelog`)
+    ]);
+    const d = await dR.json();
+    const s = await sR.json();
+    const c = await cR.json();
+
+    ALL = Object.entries(d.codes || {}).map(([code, v]) => ({ code, ...v }));
+
+    fuse = new Fuse(ALL, {
+      keys: [
+        { name: "code", weight: 0.4 },
+        { name: "short", weight: 0.3 },
+        { name: "plain_english", weight: 0.2 },
+        { name: "tags", weight: 0.15 },
+        { name: "scenario", weight: 0.1 },
+        { name: "fix_hint", weight: 0.05 }
+      ],
+      threshold: 0.35, includeScore: true, minMatchCharLength: 2
+    });
+
+    const ss = s.stats || {};
+    document.getElementById("sTotal").textContent = ss.total || 0;
+    document.getElementById("sUser").textContent  = ss.by_severity?.["user-error"] || 0;
+    document.getElementById("sAdmin").textContent = ss.by_severity?.["admin-config"] || 0;
+    document.getElementById("sDev").textContent   = ss.by_severity?.["developer"] || 0;
+    document.getElementById("sCA").textContent    = ss.ca_triggers || 0;
+
+    document.getElementById("fc-all").textContent = ALL.length;
+    document.getElementById("fc-ue").textContent  = ss.by_severity?.["user-error"] || 0;
+    document.getElementById("fc-ac").textContent  = ss.by_severity?.["admin-config"] || 0;
+    document.getElementById("fc-dv").textContent  = ss.by_severity?.["developer"] || 0;
+    document.getElementById("fc-ms").textContent  = ss.by_severity?.["microsoft-side"] || 0;
+
+    const sc = ss.by_scenario || {};
+    document.getElementById("fsc-ca").textContent     = sc["conditional-access"] || 0;
+    document.getElementById("fsc-mfa").textContent    = sc["mfa"] || 0;
+    document.getElementById("fsc-dev").textContent    = sc["device-compliance"] || 0;
+    document.getElementById("fsc-b2b").textContent    = sc["b2b"] || 0;
+    document.getElementById("fsc-tok").textContent    = sc["token"] || 0;
+    document.getElementById("fsc-con").textContent    = sc["consent"] || 0;
+    document.getElementById("fsc-hyb").textContent    = sc["hybrid"] || 0;
+    document.getElementById("fsc-ip").textContent     = sc["identity-protection"] || 0;
+    document.getElementById("fsc-catrig").textContent = ss.ca_triggers || 0;
+
+    const ls = s.last_sync;
+    const ph = s.parser_health;
+    const bar = document.getElementById("syncBar");
+    const statusEl = document.getElementById("syncStatus");
+    const timeEl   = document.getElementById("syncTime");
+
+    if (ph && ph.ok === false) {
+      bar.classList.add("error");
+      statusEl.textContent = "⚠ Parser error — using cached data";
+      timeEl.textContent = ph.last_attempt
+        ? `Last attempt: ${new Date(ph.last_attempt).toLocaleString("en-GB",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"})} UTC`
+        : "";
+    } else if (ls?.timestamp) {
+      bar.classList.add("ok");
+      const dt = new Date(ls.timestamp);
+      const fmtDate = dt.toLocaleString("en-GB",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit",timeZone:"UTC"});
+      statusEl.textContent = "Live — synced from Microsoft Learn";
+      timeEl.textContent = `Last sync: ${fmtDate} UTC`;
+      document.getElementById("syncLbl").textContent = `Synced ${fmtDate} UTC`;
+    } else {
+      statusEl.textContent = "Awaiting first sync";
+      timeEl.textContent = "";
+    }
+
+    const cl = (c.changelog || []).slice(0, 3);
+    if (cl.length) {
+      const clbar = document.getElementById("clBar");
+      clbar.style.display = "block";
+      clbar.innerHTML = `⚡ <strong>Recent changes:</strong> &nbsp;` +
+        cl.map(x => `<strong style="color:var(--text)">${x.code}</strong> ${x.type === "new" ? "added" : "updated"}`).join(" &nbsp;·&nbsp; ");
+    }
+
+    render();
+  } catch(e) {
+    document.getElementById("grid").innerHTML =
+      `<div class="ph" style="color:var(--ca)">⚠️ Failed to load — ${e.message}</div>`;
+  }
+}
+
+function filtered() {
+  let res = ALL;
+  if (searchQ.length >= 1) {
+    const up = searchQ.toUpperCase().trim();
+    if (up.startsWith("AADSTS")) {
+      res = ALL.filter(c => c.code.startsWith(up) || c.code === up);
+    } else if (/^\d{4,6}$/.test(searchQ.trim())) {
+      res = ALL.filter(c => c.code.includes(searchQ.trim()));
+    } else if (searchQ.length >= 2) {
+      res = fuse.search(searchQ).map(r => r.item);
+    }
+  }
+  if (AF.sev && AF.sev !== "all") res = res.filter(c => c.severity === AF.sev);
+  if (AF.sc)  res = res.filter(c => (c.scenario||[]).includes(AF.sc));
+  if (AF.ca === "true") res = res.filter(c => c.ca_trigger === true);
+  return res;
+}
+
+function render() {
+  const grid  = document.getElementById("grid");
+  const empty = document.getElementById("empty");
+  const sort  = document.getElementById("sortSel").value;
+  let res = filtered();
+
+  if (sort === "sev") {
+    const ord = {"user-error":0,"admin-config":1,"developer":2,"microsoft-side":3};
+    res.sort((a,b) => (ord[a.severity]||9) - (ord[b.severity]||9));
+  } else {
+    res.sort((a,b) => a.code.localeCompare(b.code));
+  }
+
+  document.getElementById("rCount").textContent = res.length;
+
+  if (!res.length) {
+    grid.innerHTML = "";
+    empty.style.display = "flex";
+    return;
+  }
+  empty.style.display = "none";
+
+  grid.innerHTML = res.map((c, i) => {
+    const sv = SEV[c.severity] || SEV["developer"];
+    const delay = Math.min(i * 16, 260);
+    const scns = (c.scenario||[]).slice(0,3).join(" · ");
+    return `
+<div class="card" id="c-${c.code}" style="animation-delay:${delay}ms" onclick="tog('${c.code}')">
+  <div class="chdr">
+    <span class="ccode">${c.code}</span>
+    <span class="ctitle">${h(c.short||c.plain_english||"")}</span>
+    <div class="bdgs">
+      <span class="bdg ${sv.cls}">${sv.lbl}</span>
+      ${c.ca_trigger ? '<span class="bdg ca">CA Trigger</span>' : ""}
+    </div>
+    <span class="chev">▼</span>
+  </div>
+  <div class="cbody">
+    <div class="bgrid">
+      <div class="dl full">
+        <div class="dl-l">Plain English</div>
+        <div class="dl-v">${h(c.plain_english||"")}</div>
+      </div>
+      <div class="dl full">
+        <div class="dl-l">Fix Hint</div>
+        <div class="fix">${h(c.fix_hint||"")}</div>
+      </div>
+      <div class="dl">
+        <div class="dl-l">Who Needs to Act</div>
+        <div class="dl-v">${sv.who}</div>
+      </div>
+      <div class="dl">
+        <div class="dl-l">Scenarios</div>
+        <div class="dl-v" style="color:var(--text2)">${h(scns)}</div>
+      </div>
+      <div class="dl full">
+        <div class="dl-l">Tags</div>
+        <div class="tags">${(c.tags||[]).map(t=>`<span class="tag">${h(t)}</span>`).join("")}</div>
+      </div>
+    </div>
+  </div>
+</div>`;
+  }).join("");
+}
+
+function tog(code) {
+  const el = document.getElementById("c-" + code);
+  if (!el) return;
+  const was = el.classList.contains("open");
+  document.querySelectorAll(".card.open").forEach(x => x.classList.remove("open"));
+  if (!was) el.classList.add("open");
+}
+
+function filt(type, val) {
+  if (type === "sev") { AF.sev = val; AF.sc = null; AF.ca = null; }
+  else if (type === "sc")  { AF.sc  = AF.sc  === val ? null : val; AF.sev = "all"; AF.ca = null; }
+  else if (type === "ca")  { AF.ca  = AF.ca  === val ? null : val; AF.sev = "all"; AF.sc = null; }
+  document.querySelectorAll(".fb").forEach(b => {
+    b.classList.remove("on");
+    const bt = b.dataset.f, bv = b.dataset.v;
+    if (bt === "sev" && bv === AF.sev) b.classList.add("on");
+    if (bt === "sc"  && bv === AF.sc)  b.classList.add("on");
+    if (bt === "ca"  && bv === AF.ca)  b.classList.add("on");
+  });
+  render();
+}
+
+const qi = document.getElementById("q");
+const qx = document.getElementById("qx");
+qi.addEventListener("input", () => {
+  searchQ = qi.value.trim();
+  qx.classList.toggle("on", searchQ.length > 0);
+  render();
+});
+qx.addEventListener("click", () => {
+  qi.value = ""; searchQ = "";
+  qx.classList.remove("on");
+  qi.focus(); render();
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "/" && document.activeElement !== qi) { e.preventDefault(); qi.focus(); }
+  if (e.key === "Escape" && document.activeElement === qi) qi.blur();
+});
+
+function h(s) {
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+load();
+</script>
+</body>
+</html>

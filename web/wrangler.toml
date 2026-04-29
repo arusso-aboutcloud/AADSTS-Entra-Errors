@@ -1,0 +1,10 @@
+# entra-errors Pages — wrangler.toml
+# Deployed to Cloudflare Pages
+# Domains: entra-errors.pages.dev, entraerrors.aboutcloud.io
+
+name = "entra-errors"
+compatibility_date = "2026-04-01"
+
+# Static site — serves index.html
+# Custom domain configured via Cloudflare dashboard:
+# entraerrors.aboutcloud.io → entra-errors.pages.dev (CNAME)

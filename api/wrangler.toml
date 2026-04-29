@@ -1,0 +1,28 @@
+# entra-errors Worker — wrangler.toml
+# Deployed to Cloudflare Workers
+# Route: api.aboutcloud.io/entra-errors*
+
+name = "entra-errors"
+main = "worker.js"
+compatibility_date = "2026-04-01"
+usage_model = "standard"
+
+# Cron trigger — scrapes Microsoft Learn every 6 hours
+[triggers]
+crons = ["0 */6 * * *"]
+
+# KV binding
+[[kv_namespaces]]
+binding = "ENTRA_ERRORS"
+id = "45cfec03ab864558b853e5395ac3d903"
+
+# Route (custom domain)
+[[routes]]
+pattern = "api.aboutcloud.io/entra-errors*"
+zone_name = "aboutcloud.io"
+
+# Secrets (set via wrangler CLI, not committed)
+# SEED_SECRET — authentication secret for admin endpoints
+
+[vars]
+# No public vars — SEED_SECRET is a secret (not committed)

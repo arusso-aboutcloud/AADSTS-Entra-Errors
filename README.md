@@ -208,19 +208,20 @@ The cron job (`0 */6 * * *`) fetches the page, parses error code sections, and u
 
 **Repo:** `arusso-aboutcloud/AADSTS-Entra-Errors` (private)
 
-> ⚠️ The application code (Worker script + Pages HTML/JS) currently lives **only in Cloudflare** and was deployed via dashboard direct upload / Quick Editor. This repo will be the canonical source once the code is extracted from Cloudflare and committed here.
+Canonical source for the application. Code extracted from Cloudflare on 2026-04-29.
 
-### Planned Structure (to be populated)
+### Structure
 
 ```
 ├── api/                  # Worker script
-│   ├── worker.js
-│   └── wrangler.toml
+│   ├── worker.js         # Full worker source (290 lines)
+│   └── wrangler.toml     # Worker configuration
 ├── web/                  # Pages frontend
-│   ├── index.html
-│   └── wrangler.toml
+│   ├── index.html        # Full frontend (989 lines)
+│   └── wrangler.toml     # Pages configuration
 ├── scripts/              # Utilities
-│   └── scrape_errors.py # Reference scraper
+│   └── scrape_errors.py  # Reference scraper
+├── .gitignore
 └── README.md
 ```
 
