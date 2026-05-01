@@ -3,8 +3,26 @@
 > Free community AADSTS error code lookup for Microsoft Entra ID.  
 > Search by code, scenario or plain English. Severity classification, Conditional Access trigger detection, fix hints — auto-updated from Microsoft Learn.
 
+**Author:** [Antonio Russo](mailto:arusso@aboutcloud.io) · [aboutcloud.io](https://aboutcloud.io)
+
+<p align="center">
+  <a href="https://github.com/arusso-aboutcloud/AADSTS-Entra-Errors/actions/workflows/trivy-scan.yml"><img src="./trivy-badge.svg" alt="Trivy Security Scan" height="24"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License"></a>
+  <img src="https://img.shields.io/badge/codes-349-blue" alt="349 error codes">
+  <img src="https://img.shields.io/badge/update-every_6h-green" alt="Updated every 6 hours">
+  <img src="https://img.shields.io/badge/cost-€0/month-brightgreen" alt="€0/month">
+</p>
+
 **Live:** [entraerrors.aboutcloud.io](https://entraerrors.aboutcloud.io)  
 **API:** `https://api.aboutcloud.io/entra-errors`
+
+---
+
+## Architecture
+
+<p align="center">
+  <img src="./architecture.svg" alt="Entra Errors Architecture" width="720">
+</p>
 
 ---
 
@@ -16,94 +34,63 @@ A fully automated, €0/month reference tool that scrapes the [Microsoft Entra I
 
 ---
 
-## Architecture
+## Security Scan
 
-```
-┌─────────────────────────────────────────────────┐
-│  Microsoft Learn                                  │
-│  learn.microsoft.com/.../reference-error-codes   │
-└──────────────┬──────────────────────────────────┘
-               │ cron: 0 */6 * * *
-               ▼
-┌──────────────────────────────────────┐
-│  Cloudflare Worker: entra-errors     │
-│  • Fetches + parses MS Learn page    │
-│  • Classifies severity, who_fixes    │
-│  • Detects Conditional Access triggers│
-│  • Writes to KV                      │
-│  • Serves JSON API                   │
-│                                      │
-│  Handler: fetch + scheduled          │
-│  Bindings: KV, SEED_SECRET           │
-│  Route: api.aboutcloud.io/entra-errors*│
-└──────┬──────────────┬────────────────┘
-       │              │
-       ▼              ▼
-┌──────────────┐  ┌──────────────────────────┐
-│  KV: ENTRA-  │  │  Cloudflare Pages         │
-│  ERRORS      │  │  entra-errors.pages.dev   │
-│              │  │  entraerrors.aboutcloud.io │
-│  • codes_v1  │  │                            │
-│  • changelog │  │  Static SPA:               │
-│  • last_sync │  │  • Fuse.js search          │
-│  • health    │  │  • Dark theme              │
-│              │  │  • Severity filters        │
-└──────────────┘  │  • Conditional Access badge │
-                  │  • Copy-friendly error codes│
-                  │  • Structured Data (JSON-LD)│
-                  └──────────────────────────────┘
-```
+<p align="center">
+  <a href="https://github.com/arusso-aboutcloud/AADSTS-Entra-Errors/actions/workflows/trivy-scan.yml"><img src="./trivy-badge.svg" alt="Trivy Security Scan"></a>
+</p>
+
+This repository is automatically scanned by [Trivy](https://trivy.dev/) on every push and daily at midnight UTC. The badge above reflects the latest scan results in real time — it updates automatically via GitHub Actions.
+
+<details>
+<summary>📊 Latest Trivy Report (click to expand)</summary>
+
+> The detailed scan report is generated on each run. See the [Actions tab](https://github.com/arusso-aboutcloud/AADSTS-Entra-Errors/actions/workflows/trivy-scan.yml) for full results.
+
+| Scanner | Status |
+|---|---|
+| Secrets | Scanned on every push |
+| Misconfigurations | Scanned on every push |
+| Vulnerabilities | Scanned on every push |
+
+</details>
 
 ---
 
 ## Cloudflare Infrastructure
 
-### Worker: `entra-errors`
+### Worker
 
 | Property | Value |
 |---|---|
-| **ID** | `entra-errors` |
-| **Route** | `api.aboutcloud.io/entra-errors*` |
-| **Handlers** | `fetch`, `scheduled` |
-| **Compatibility date** | 2026-04-01 |
-| **Usage model** | Standard |
-| **Versions** | 15 (latest: April 2, 2026) |
-| **Deployed via** | Quick Editor (dashboard) |
-| **Author** | russo.antonio76@gmail.com |
+| Handlers | `fetch`, `scheduled` |
+| Compatibility date | 2026-04-01 |
+| Usage model | Standard |
 
 **Bindings:**
 
 | Name | Type | Details |
 |---|---|---|
-| `ENTRA_ERRORS` | KV Namespace | ID: `45cfec03ab864558b853e5395ac3d903` |
-| `SEED_SECRET` | Secret | Plain text |
+| `ENTRA_ERRORS` | KV Namespace | Error codes, changelog, sync metadata |
+| `SEED_SECRET` | Secret | Authentication for admin endpoints |
 
-**Cron Trigger:** `0 */6 * * *` (every 6 hours) — scrapes Microsoft Learn and refreshes KV.
+**Cron Trigger:** Every 6 hours — scrapes Microsoft Learn and refreshes KV.
 
-### Pages: `entra-errors`
+### Pages
 
 | Property | Value |
 |---|---|
-| **Project name** | `entra-errors` |
-| **Domains** | `entra-errors.pages.dev`, `entraerrors.aboutcloud.io` |
-| **Deployment type** | Direct upload (not git-based) |
-| **Latest deployment** | April 1, 2026 |
-| **Tech** | Static HTML + Fuse.js 7.0 + custom CSS |
+| Deployment type | Direct upload (or Git-based — your choice) |
+| Tech | Static HTML + Fuse.js 7.0 + custom CSS |
 
-### KV: `ENTRA-ERRORS`
-
-**Namespace ID:** `45cfec03ab864558b853e5395ac3d903`
-
-**Keys:**
+### KV Keys
 
 | Key | Content | Size |
 |---|---|---|
 | `entra_errors_codes_v1` | All 349 classified error codes (JSON) | ~240 KB |
-| `entra_errors_changelog_v1` | Change log (currently empty array) | — |
+| `entra_errors_changelog_v1` | Change log | — |
 | `entra_errors_last_sync_v1` | Last sync timestamp and stats | < 1 KB |
 | `entra_errors_parser_health_v1` | Parser health check result | < 1 KB |
-
-**Last sync (as of 2026-04-29):** 349 total codes, 6 scraped per run, 0 new/changed.
 
 ---
 
@@ -118,28 +105,22 @@ Returns full error code catalog.
 {
   "meta": {
     "total": 349,
-    "last_sync": { "timestamp": "...", "total_codes": 349, ... },
+    "last_sync": { "timestamp": "...", "total_codes": 349 },
     "source": "https://learn.microsoft.com/en-us/entra/identity-platform/reference-error-codes"
   },
   "codes": {
-    "AADSTS50076": { ... },
-    ...
+    "AADSTS50076": { "...": "..." }
   }
 }
 ```
 
-### `GET /stats`
-Returns aggregate statistics.
-
-### `GET /changelog`
-Returns change log (currently empty).
-
-### Query Parameters
-Supports search/filter — exact params determined by worker logic.
+### `GET /stats` — Aggregate statistics  
+### `GET /changelog` — Change log  
+### `GET /code/:code` — Single error code lookup  
 
 ---
 
-## Data Model (per error code)
+## Data Model
 
 ```json
 {
@@ -170,71 +151,59 @@ Supports search/filter — exact params determined by worker logic.
 | `developer` | 🟣 App / Dev | Developer needs to fix code or app registration |
 | `microsoft-side` | ⚪ Microsoft Side | Transient Microsoft-side error — retry |
 
-### `who_fixes`
-- `user` — end user action
-- `admin` — tenant/Entra admin configuration
-- `developer` — application code/registration fix
-- `nobody` — Microsoft-side, not fixable by customer
-
-### `ca_trigger`
-Boolean — `true` if this error can be triggered by a Conditional Access policy.
-Currently 23 codes flagged.
-
 ---
 
 ## Frontend Features
 
-- 🔍 **Fuse.js full-text search** — weighted across code, description, tags, scenarios
-- 🏷️ **Severity filters** — user-error, admin-config, developer, microsoft-side
-- 🔴 **Conditional Access badge** — highlights CA-triggered errors
-- 📋 **Click-to-copy error codes**
-- 🌙 **Dark theme** (Entra-inspired)
-- 📊 **Live stats bar** — total codes, breakdown by severity, CA triggers
-- 🔗 **Structured data** (JSON-LD) for SEO
-- 📈 **Analytics** via aboutcloud.io analytics (Plausible/Umami-style)
+- 🔍 Fuse.js full-text search — weighted across code, description, tags, scenarios
+- 🏷️ Severity filters — user-error, admin-config, developer, microsoft-side
+- 🔴 Conditional Access badge — highlights CA-triggered errors
+- 📋 Click-to-copy error codes
+- 🌙 Dark theme (Entra-inspired)
+- 📊 Live stats bar — total codes, breakdown by severity, CA triggers
+- 🔗 Structured data (JSON-LD) for SEO
 
 ---
 
-## Source Data
-
-Scraped from:  
-`https://learn.microsoft.com/en-us/entra/identity-platform/reference-error-codes`
-
-The cron job (`0 */6 * * *`) fetches the page, parses error code sections, and updates KV. The parser typically finds ~6 codes per run (already mostly classified). Classification metadata (severity, who_fixes, fix_hints, tags) is auto-generated with manual overrides available via the `needs_review` flag.
-
----
-
-## GitHub Repo
-
-**Repo:** `arusso-aboutcloud/AADSTS-Entra-Errors` (private)
-
-Canonical source for the application. Code extracted from Cloudflare on 2026-04-29.
-
-### Structure
+## Repo Structure
 
 ```
 ├── api/                  # Worker script
-│   ├── worker.js         # Full worker source (290 lines)
+│   ├── worker.js         # Full worker source
 │   └── wrangler.toml     # Worker configuration
 ├── web/                  # Pages frontend
-│   ├── index.html        # Full frontend (989 lines)
+│   ├── index.html        # Full frontend
 │   └── wrangler.toml     # Pages configuration
 ├── scripts/              # Utilities
 │   └── scrape_errors.py  # Reference scraper
-├── .gitignore
+├── .github/workflows/    # CI/CD
+│   └── trivy-scan.yml    # Automated security scanning
+├── architecture.svg      # Architecture diagram
+├── trivy-badge.svg       # Auto-updated security badge
+├── LICENSE
 └── README.md
 ```
 
 ---
 
-## Status
+## Quick Start
 
-- ✅ **Worker** — live, cron active, serving API
-- ✅ **Pages** — live, serving frontend
-- ✅ **KV** — populated with 349 codes
-- ✅ **Cron** — running every 6 hours
-- ✅ **Parser health** — OK
-- ⏳ **GitHub sync** — code not yet in repo (dashboard-deployed)
+1. **Clone:** `git clone https://github.com/arusso-aboutcloud/AADSTS-Entra-Errors.git`
+2. **Install Wrangler:** `npm install -g wrangler`
+3. **Create KV namespace:** `wrangler kv:namespace create ENTRA_ERRORS`
+4. **Set secret:** `wrangler secret put SEED_SECRET`
+5. **Update `wrangler.toml`** with your KV namespace ID, zone, and route
+6. **Deploy:** `wrangler deploy`
+
+---
+
+## License
+
+MIT — see [LICENSE](./LICENSE) for full text.
+
+> ⚠️ **Commercial use?** This project is free for personal, educational, and non-commercial use.  
+> If you want to use it commercially (SaaS, managed service, reselling, or as part of a paid product),  
+> please **[contact me](https://aboutcloud.io/contact)** first. I'm happy to discuss — just ask.
 
 ---
 

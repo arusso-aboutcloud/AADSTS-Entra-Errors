@@ -1,6 +1,5 @@
 # entra-errors Worker — wrangler.toml
 # Deployed to Cloudflare Workers
-# Route: api.aboutcloud.io/entra-errors*
 
 name = "entra-errors"
 main = "worker.js"
@@ -11,18 +10,18 @@ usage_model = "standard"
 [triggers]
 crons = ["0 */6 * * *"]
 
-# KV binding
+# KV binding (set via `wrangler kv:namespace create` or dashboard)
 [[kv_namespaces]]
 binding = "ENTRA_ERRORS"
-id = "45cfec03ab864558b853e5395ac3d903"
+id = "YOUR_KV_NAMESPACE_ID"
 
-# Route (custom domain)
+# Route (custom domain — configure your own zone)
 [[routes]]
-pattern = "api.aboutcloud.io/entra-errors*"
-zone_name = "aboutcloud.io"
+pattern = "api.YOUR_DOMAIN/entra-errors*"
+zone_name = "YOUR_ZONE"
 
-# Secrets (set via wrangler CLI, not committed)
-# SEED_SECRET — authentication secret for admin endpoints
+# Secrets (set via wrangler CLI, never committed)
+# wrangler secret put SEED_SECRET
 
 [vars]
-# No public vars — SEED_SECRET is a secret (not committed)
+# No public vars — SEED_SECRET is a secret (never committed)

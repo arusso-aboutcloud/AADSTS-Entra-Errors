@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" font-family="system-ui, -apple-system, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+    <linearGradient id="ms" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00a4ef"/>
+      <stop offset="100%" stop-color="#0078d4"/>
+    </linearGradient>
+    <linearGradient id="worker" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f58423"/>
+      <stop offset="100%" stop-color="#e06b10"/>
+    </linearGradient>
+    <linearGradient id="kv" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6e40c9"/>
+      <stop offset="100%" stop-color="#553098"/>
+    </linearGradient>
+    <linearGradient id="pages" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#28a745"/>
+      <stop offset="100%" stop-color="#1a7f32"/>
+    </linearGradient>
+    <linearGradient id="user" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#58a6ff"/>
+      <stop offset="100%" stop-color="#388bfd"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#8b949e"/>
+    </marker>
+    <marker id="arrowDown" markerWidth="7" markerHeight="10" refX="3.5" refY="10" orient="auto">
+      <polygon points="0 0, 7 0, 3.5 10" fill="#8b949e"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="720" height="340" rx="12" fill="url(#bg)"/>
+  <rect width="720" height="340" rx="12" fill="none" stroke="#30363d" stroke-width="1"/>
+
+  <!-- Title -->
+  <text x="360" y="30" text-anchor="middle" fill="#e6edf3" font-size="15" font-weight="700">Entra Errors — Architecture</text>
+
+  <!-- Microsoft Learn Box -->
+  <rect x="260" y="50" width="200" height="50" rx="8" fill="url(#ms)" opacity="0.15"/>
+  <rect x="260" y="50" width="200" height="50" rx="8" fill="none" stroke="#00a4ef" stroke-width="1.5"/>
+  <text x="360" y="72" text-anchor="middle" fill="#00a4ef" font-size="12" font-weight="600">Microsoft Learn</text>
+  <text x="360" y="90" text-anchor="middle" fill="#8b949e" font-size="10">Reference Error Codes Page</text>
+
+  <!-- Arrow: MS → Worker -->
+  <line x1="360" y1="100" x2="360" y2="130" stroke="#8b949e" stroke-width="1.5" marker-end="url(#arrowDown)"/>
+
+  <!-- Worker Box -->
+  <rect x="220" y="135" width="280" height="70" rx="8" fill="url(#worker)" opacity="0.12"/>
+  <rect x="220" y="135" width="280" height="70" rx="8" fill="none" stroke="#f58423" stroke-width="1.5"/>
+  <text x="360" y="158" text-anchor="middle" fill="#f58423" font-size="13" font-weight="700">Cloudflare Worker</text>
+  <text x="360" y="176" text-anchor="middle" fill="#e6edf3" font-size="10">entra-errors</text>
+  <text x="360" y="194" text-anchor="middle" fill="#8b949e" font-size="9">
+    <tspan fill="#f58423">fetch</tspan> + <tspan fill="#f58423">scheduled</tspan> · Cron 0 */6 * * *
+  </text>
+
+  <!-- Boxes side by side -->
+  <!-- KV Box (left) -->
+  <rect x="60" y="235" width="210" height="60" rx="8" fill="url(#kv)" opacity="0.12"/>
+  <rect x="60" y="235" width="210" height="60" rx="8" fill="none" stroke="#6e40c9" stroke-width="1.5"/>
+  <text x="165" y="258" text-anchor="middle" fill="#6e40c9" font-size="11" font-weight="700">KV: ENTRA_ERRORS</text>
+  <text x="165" y="276" text-anchor="middle" fill="#8b949e" font-size="9">codes · changelog · last_sync · health</text>
+  <text x="165" y="290" text-anchor="middle" fill="#484f58" font-size="8">~240 KB · 349 codes</text>
+
+  <!-- Pages Box (right) -->
+  <rect x="380" y="235" width="280" height="60" rx="8" fill="url(#pages)" opacity="0.12"/>
+  <rect x="380" y="235" width="280" height="60" rx="8" fill="none" stroke="#28a745" stroke-width="1.5"/>
+  <text x="520" y="258" text-anchor="middle" fill="#28a745" font-size="11" font-weight="700">Cloudflare Pages</text>
+  <text x="520" y="276" text-anchor="middle" fill="#8b949e" font-size="9">entraerrors.aboutcloud.io</text>
+  <text x="520" y="290" text-anchor="middle" fill="#8b949e" font-size="8">Fuse.js search · Dark theme · JSON-LD</text>
+
+  <!-- Arrow: Worker → KV -->
+  <line x1="250" y1="185" x2="165" y2="233" stroke="#8b949e" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <text x="200" y="210" fill="#484f58" font-size="8">read/write</text>
+
+  <!-- Arrow: Worker → Pages -->
+  <line x1="450" y1="185" x2="500" y2="233" stroke="#8b949e" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <text x="480" y="210" fill="#484f58" font-size="8">API calls</text>
+
+  <!-- User (bottom right) -->
+  <rect x="600" y="242" width="90" height="46" rx="8" fill="url(#user)" opacity="0.12"/>
+  <rect x="600" y="242" width="90" height="46" rx="8" fill="none" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="645" y="264" text-anchor="middle" fill="#58a6ff" font-size="10" font-weight="600">🔍 Users</text>
+  <text x="645" y="282" text-anchor="middle" fill="#8b949e" font-size="8">Search · Filter</text>
+
+  <!-- Arrow: Pages → User -->
+  <line x1="590" y1="265" x2="598" y2="265" stroke="#8b949e" stroke-width="1"/>
+
+  <!-- QR-ish decoration -->
+  <circle cx="55" cy="55" r="3" fill="#30363d"/>
+  <circle cx="65" cy="55" r="3" fill="#30363d"/>
+  <circle cx="55" cy="65" r="3" fill="#30363d"/>
+  <circle cx="665" cy="55" r="3" fill="#30363d"/>
+  <circle cx="655" cy="55" r="3" fill="#30363d"/>
+  <circle cx="665" cy="65" r="3" fill="#30363d"/>
+
+  <!-- Footer -->
+  <text x="360" y="330" text-anchor="middle" fill="#30363d" font-size="9">Auto-updated from Microsoft Learn · €0/month · Open Source</text>
+</svg>
