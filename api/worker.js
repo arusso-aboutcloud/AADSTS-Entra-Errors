@@ -1,11 +1,12 @@
 // entra-errors-worker.js — v4 (Service Worker format)
 // KV binding variable name: ENTRA_ERRORS
 // Secret variable: SEED_SECRET
-// Route: api.aboutcloud.io/entra-errors*
+// Route: api.aboutcloud.io/entra-errors* (also blog.aboutcloud.io)
 // Cron: 0 */6 * * *
 
 const ALLOWED_ORIGINS = [
-  "https://aboutcloud.io",
+  "https://blog.aboutcloud.io",
+    "https://aboutcloud.io",
   "https://entraerrors.aboutcloud.io",
   "https://tracker.aboutcloud.io"
 ];
