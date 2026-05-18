@@ -204,13 +204,22 @@ nav .cta:hover { background: rgba(0,120,212,0.22); }
 }
 
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+/* ── Glow animations ── */
+@keyframes aadsts-title-glow { 0%,100%{text-shadow:0 0 6px rgba(255,255,255,0.95),0 0 18px rgba(255,255,255,0.7),0 0 45px rgba(255,255,255,0.35),0 0 70px rgba(255,255,255,0.15)} 50%{text-shadow:0 0 4px rgba(255,255,255,0.4),0 0 12px rgba(255,255,255,0.15)} }
+@keyframes aadsts-sub-glow  { 0%,100%{filter:drop-shadow(0 0 6px rgba(40,153,245,0.95)) drop-shadow(0 0 18px rgba(40,153,245,0.65)) drop-shadow(0 0 40px rgba(0,180,216,0.35))} 50%{filter:drop-shadow(0 0 3px rgba(40,153,245,0.4)) drop-shadow(0 0 10px rgba(40,153,245,0.12))} }
+@keyframes sc-glow-tot { 0%,100%{text-shadow:0 0 6px rgba(40,153,245,1.0),0 0 18px rgba(40,153,245,0.85),0 0 45px rgba(40,153,245,0.5),0 0 70px rgba(40,153,245,0.2)} 50%{text-shadow:0 0 4px rgba(40,153,245,0.45),0 0 12px rgba(40,153,245,0.15)} }
+@keyframes sc-glow-usr { 0%,100%{text-shadow:0 0 6px rgba(16,185,129,1.0), 0 0 18px rgba(16,185,129,0.85), 0 0 45px rgba(16,185,129,0.5), 0 0 70px rgba(16,185,129,0.2)}  50%{text-shadow:0 0 4px rgba(16,185,129,0.45), 0 0 12px rgba(16,185,129,0.15)} }
+@keyframes sc-glow-adm { 0%,100%{text-shadow:0 0 6px rgba(245,158,11,1.0), 0 0 18px rgba(245,158,11,0.85), 0 0 45px rgba(245,158,11,0.5), 0 0 70px rgba(245,158,11,0.2)}  50%{text-shadow:0 0 4px rgba(245,158,11,0.45), 0 0 12px rgba(245,158,11,0.15)} }
+@keyframes sc-glow-dev { 0%,100%{text-shadow:0 0 6px rgba(139,92,246,1.0), 0 0 18px rgba(139,92,246,0.85), 0 0 45px rgba(139,92,246,0.5), 0 0 70px rgba(139,92,246,0.2)}  50%{text-shadow:0 0 4px rgba(139,92,246,0.45), 0 0 12px rgba(139,92,246,0.15)} }
+@keyframes sc-glow-ca  { 0%,100%{text-shadow:0 0 6px rgba(239,68,68,1.0),  0 0 18px rgba(239,68,68,0.85),  0 0 45px rgba(239,68,68,0.5),  0 0 70px rgba(239,68,68,0.2)}   50%{text-shadow:0 0 4px rgba(239,68,68,0.45),  0 0 12px rgba(239,68,68,0.15)} }
+
 
 h1 {
   font-family: var(--fd);
   font-size: clamp(3.4rem, 6.5vw, 5.6rem);
   font-weight: 700; letter-spacing: -0.025em; line-height: 1.06;
   margin-bottom: 26px;
-  opacity: 0; animation: up 0.5s 0.1s ease forwards;
+  opacity: 0; animation: up 0.5s 0.1s ease forwards, aadsts-title-glow 3s 0.7s ease-in-out infinite;
 }
 
 h1 em {
@@ -218,6 +227,7 @@ h1 em {
   background: linear-gradient(120deg, var(--entra-lt), var(--azure));
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: aadsts-sub-glow 3s 1.1s ease-in-out infinite;
 }
 
 .sub {
@@ -252,11 +262,11 @@ h1 em {
   color: var(--text3); text-transform: uppercase;
   letter-spacing: 0.08em; margin-top: 10px;
 }
-.sc.tot .sc-n { color: var(--entra-lt); }
-.sc.usr .sc-n { color: var(--user); }
-.sc.adm .sc-n { color: var(--admin); }
-.sc.dev .sc-n { color: var(--dev); }
-.sc.ca  .sc-n { color: var(--ca); }
+.sc.tot .sc-n { color: var(--entra-lt); animation: sc-glow-tot 3s ease-in-out infinite; }
+.sc.usr .sc-n { color: var(--user);     animation: sc-glow-usr 3s ease-in-out infinite 0.3s; }
+.sc.adm .sc-n { color: var(--admin);    animation: sc-glow-adm 3s ease-in-out infinite 0.6s; }
+.sc.dev .sc-n { color: var(--dev);      animation: sc-glow-dev 3s ease-in-out infinite 0.9s; }
+.sc.ca  .sc-n { color: var(--ca);       animation: sc-glow-ca  3s ease-in-out infinite 1.2s; }
 
 /* ── SEARCH ──────────────────────────────────────────────────────────────────── */
 .swrap {
