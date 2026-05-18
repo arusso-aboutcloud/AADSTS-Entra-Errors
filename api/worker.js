@@ -258,6 +258,35 @@ async function handleRequest(request) {
       return respond({ ok: true, seeded, total: Object.keys(existing).length }, 200, origin, true);
     }
 
+    // ── GET /entra-errors/export.csv ────────────────────────────────────────
+    if (method === "GET" && path === "/entra-errors/export.csv") {
+      const codes = JSON.parse(await ENTRA_ERRORS.get(KV_CODES) || "{}");
+      const csvEscape = v => '"' + String(v ?? "").replace(/"/g, '""') + '"';
+      const rows = [
+        ["code", "short", "severity", "who_fixes", "ca_trigger", "scenario", "plain_english"].join(",")
+      ];
+      for (const [code, c] of Object.entries(codes).sort()) {
+        rows.push([
+          csvEscape(code),
+          csvEscape(c.short),
+          csvEscape(c.severity),
+          csvEscape(c.who_fixes),
+          csvEscape(c.ca_trigger ? "TRUE" : "FALSE"),
+          csvEscape((c.scenario || []).join("|")),
+          csvEscape(c.plain_english)
+        ].join(","));
+      }
+      return new Response(rows.join("\r\n"), {
+        status: 200,
+        headers: {
+          "Content-Type": "text/csv; charset=utf-8",
+          "Content-Disposition": 'attachment; filename="aadsts-error-codes.csv"',
+          "Cache-Control": "public, max-age=3600",
+          "Access-Control-Allow-Origin": "*"
+        }
+      });
+    }
+
     // ── GET /entra-errors/admin/sync ────────────────────────────────────────
     if (method === "GET" && path === "/entra-errors/admin/sync") {
       const secret = url.searchParams.get("secret");
