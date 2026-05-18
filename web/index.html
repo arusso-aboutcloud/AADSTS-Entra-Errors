@@ -248,9 +248,15 @@ h1 em {
   min-width: 170px; padding: 28px 44px;
   background: var(--surface); border: 1px solid var(--border2);
   border-radius: var(--r-lg);
-  transition: border-color 0.2s, transform 0.2s;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  cursor: pointer; user-select: none;
 }
 .sc:hover { border-color: var(--border3); transform: translateY(-2px); }
+.sc.tot.sc-active { border-color: var(--entra-lt); box-shadow: 0 0 0 1px var(--entra-lt), 0 0 14px rgba(40,153,245,0.35); }
+.sc.usr.sc-active { border-color: var(--user);     box-shadow: 0 0 0 1px var(--user),     0 0 14px rgba(16,185,129,0.35); }
+.sc.adm.sc-active { border-color: var(--admin);    box-shadow: 0 0 0 1px var(--admin),    0 0 14px rgba(245,158,11,0.35); }
+.sc.dev.sc-active { border-color: var(--dev);      box-shadow: 0 0 0 1px var(--dev),      0 0 14px rgba(139,92,246,0.35); }
+.sc.ca.sc-active  { border-color: var(--ca);       box-shadow: 0 0 0 1px var(--ca),       0 0 14px rgba(239,68,68,0.35); }
 
 .sc-n {
   font-family: var(--fd);
@@ -646,11 +652,11 @@ footer {
   <p class="sub">Search by code, scenario, or plain English. Every AADSTS code classified by severity, who needs to act, and whether Conditional Access triggered it.</p>
 
   <div class="stats">
-    <div class="sc tot"><span class="sc-n" id="sTotal">—</span><span class="sc-l">Total</span></div>
-    <div class="sc usr"><span class="sc-n" id="sUser">—</span><span class="sc-l">User Action</span></div>
-    <div class="sc adm"><span class="sc-n" id="sAdmin">—</span><span class="sc-l">Admin Config</span></div>
-    <div class="sc dev"><span class="sc-n" id="sDev">—</span><span class="sc-l">App / Dev</span></div>
-    <div class="sc ca"><span class="sc-n" id="sCA">—</span><span class="sc-l">CA Triggers</span></div>
+    <div class="sc tot" onclick="filtSC('sev','all')" title="Show all codes"><span class="sc-n" id="sTotal">—</span><span class="sc-l">Total</span></div>
+    <div class="sc usr" onclick="filtSC('sev','user-error')" title="Filter: User must act"><span class="sc-n" id="sUser">—</span><span class="sc-l">User Action</span></div>
+    <div class="sc adm" onclick="filtSC('sev','admin-config')" title="Filter: Admin config"><span class="sc-n" id="sAdmin">—</span><span class="sc-l">Admin Config</span></div>
+    <div class="sc dev" onclick="filtSC('sev','developer')" title="Filter: App / Developer"><span class="sc-n" id="sDev">—</span><span class="sc-l">App / Dev</span></div>
+    <div class="sc ca" onclick="filtSC('ca','true')" title="Filter: CA Triggers"><span class="sc-n" id="sCA">—</span><span class="sc-l">CA Triggers</span></div>
   </div>
 
   <div class="swrap">
@@ -976,6 +982,14 @@ function filt(type, val) {
     if (bt === "ca"  && bv === AF.ca)  b.classList.add("on");
   });
   render();
+}
+function filtSC(type, val) {
+  if (type === "sev" && val !== "all" && AF.sev === val) filt("sev", "all");
+  else filt(type, val);
+  const sevMap = {"user-error":"usr","admin-config":"adm","developer":"dev"};
+  document.querySelectorAll(".sc").forEach(c => c.classList.remove("sc-active"));
+  if (AF.sev !== "all") { const cl = sevMap[AF.sev]; if (cl) document.querySelector(".sc."+cl)?.classList.add("sc-active"); }
+  if (AF.ca === "true") document.querySelector(".sc.ca")?.classList.add("sc-active");
 }
 
 const qi = document.getElementById("q");
