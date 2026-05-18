@@ -13,12 +13,10 @@ crons = ["0 */6 * * *"]
 # KV binding (set via `wrangler kv:namespace create` or dashboard)
 [[kv_namespaces]]
 binding = "ENTRA_ERRORS"
-id = "YOUR_KV_NAMESPACE_ID"
+id = "45cfec03ab864558b853e5395ac3d903"
 
-# Route (custom domain — configure your own zone)
-[[routes]]
-pattern = "api.YOUR_DOMAIN/entra-errors*"
-zone_name = "YOUR_ZONE"
+# Routes are configured in the Cloudflare dashboard — do not manage via wrangler
+# to avoid overwriting the live api.aboutcloud.io/entra-errors* route.
 
 # Secrets (set via wrangler CLI, never committed)
 # wrangler secret put SEED_SECRET
