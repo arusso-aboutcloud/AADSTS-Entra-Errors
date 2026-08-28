@@ -197,6 +197,19 @@ Returns full error code catalog.
 
 ---
 
+## Related aboutcloud.io tools
+
+Other free, open-source Entra ID tools from the same team:
+
+| Tool | What it does |
+|---|---|
+| [Entra RoleLens](https://entrarolelens.aboutcloud.io) ([source](https://github.com/arusso-aboutcloud/Entra-Rolelens)) | Least-privilege Entra ID role finder — task → minimum built-in role |
+| [Entra Tracker](https://entratracker.aboutcloud.io) ([source](https://github.com/arusso-aboutcloud/Entra-Tracker)) | Live tracker for Entra ID retirements, breaking changes, and previews |
+| [EntraPass](https://entrapass.aboutcloud.io) ([source](https://github.com/arusso-aboutcloud/EntraPass)) | Passkey (FIDO2) readiness scanner for Entra ID tenants |
+| [CROSSEC](https://crossec.aboutcloud.io) ([source](https://github.com/arusso-aboutcloud/crossed)) | Microsoft Cloud security crossword game |
+
+---
+
 ## License
 
 MIT — see [LICENSE](./LICENSE) for full text.
