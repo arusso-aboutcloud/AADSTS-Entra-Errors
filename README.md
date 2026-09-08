@@ -34,29 +34,6 @@ A fully automated, €0/month reference tool that scrapes the [Microsoft Entra I
 
 ---
 
-## Security Scan
-
-<p align="center">
-  <a href="https://github.com/arusso-aboutcloud/AADSTS-Entra-Errors/actions/workflows/trivy-scan.yml"><img src="./trivy-badge.svg" alt="Trivy Security Scan"></a>
-</p>
-
-This repository is automatically scanned by [Trivy](https://trivy.dev/) on every push and daily at midnight UTC. The badge above reflects the latest scan results in real time — it updates automatically via GitHub Actions.
-
-<details>
-<summary>📊 Latest Trivy Report (click to expand)</summary>
-
-> The detailed scan report is generated on each run. See the [Actions tab](https://github.com/arusso-aboutcloud/AADSTS-Entra-Errors/actions/workflows/trivy-scan.yml) for full results.
-
-| Scanner | Status |
-|---|---|
-| Secrets | Scanned on every push |
-| Misconfigurations | Scanned on every push |
-| Vulnerabilities | Scanned on every push |
-
-</details>
-
----
-
 ## Cloudflare Infrastructure
 
 ### Worker
@@ -80,7 +57,7 @@ This repository is automatically scanned by [Trivy](https://trivy.dev/) on every
 
 | Property | Value |
 |---|---|
-| Deployment type | Direct upload (or Git-based — your choice) |
+| Deployment type | Direct upload — no Git integration; deploy with `wrangler pages deploy web` |
 | Tech | Static HTML + Fuse.js 7.0 + custom CSS |
 
 ### KV Keys
@@ -191,9 +168,10 @@ Returns full error code catalog.
 1. **Clone:** `git clone https://github.com/arusso-aboutcloud/AADSTS-Entra-Errors.git`
 2. **Install Wrangler:** `npm install -g wrangler`
 3. **Create KV namespace:** `wrangler kv:namespace create ENTRA_ERRORS`
-4. **Set secret:** `wrangler secret put SEED_SECRET`
-5. **Update `wrangler.toml`** with your KV namespace ID, zone, and route
-6. **Deploy:** `wrangler deploy`
+4. **Set secret:** `wrangler secret put SEED_SECRET --config api/wrangler.toml`
+5. **Update `api/wrangler.toml`** with your KV namespace ID, zone, and route
+6. **Deploy the Worker:** `wrangler deploy --config api/wrangler.toml`
+7. **Deploy the frontend:** `wrangler pages deploy web` (no Git integration — see Cloudflare Infrastructure above)
 
 ---
 
@@ -217,7 +195,3 @@ MIT — see [LICENSE](./LICENSE) for full text.
 > 💼 **Using this commercially?** MIT licensed and free for personal, educational, and open-source projects.  
 > Building something commercial (SaaS, managed services, reselling)? I'd love to chat —  
 > [contact me](https://aboutcloud.io/author/)
-
----
-
-*Last reconciled: 2026-04-29*
