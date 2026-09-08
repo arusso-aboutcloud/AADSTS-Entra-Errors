@@ -1,110 +1,105 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" font-family="system-ui, -apple-system, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 480" font-family="'Segoe UI', system-ui, -apple-system, sans-serif">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0d1117"/>
-      <stop offset="100%" stop-color="#161b22"/>
-    </linearGradient>
-    <linearGradient id="ms" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#00a4ef"/>
-      <stop offset="100%" stop-color="#0078d4"/>
-    </linearGradient>
-    <linearGradient id="worker" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#f58423"/>
-      <stop offset="100%" stop-color="#e06b10"/>
-    </linearGradient>
-    <linearGradient id="kv" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#6e40c9"/>
-      <stop offset="100%" stop-color="#553098"/>
-    </linearGradient>
-    <linearGradient id="pages" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#28a745"/>
-      <stop offset="100%" stop-color="#1a7f32"/>
-    </linearGradient>
-    <linearGradient id="user" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#58a6ff"/>
-      <stop offset="100%" stop-color="#388bfd"/>
-    </linearGradient>
-    <filter id="glow">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#8b949e"/>
+    <marker id="dot" markerWidth="6" markerHeight="6" refX="3" refY="3">
+      <circle cx="3" cy="3" r="2.2" fill="#3d4654"/>
     </marker>
-    <marker id="arrowDown" markerWidth="7" markerHeight="10" refX="3.5" refY="10" orient="auto">
-      <polygon points="0 0, 7 0, 3.5 10" fill="#8b949e"/>
-    </marker>
+    <!-- Icons: style attrs live on the <g id> itself, never a wrapping
+         ancestor (<use> only clones the referenced element's own
+         attributes). Defined inside <defs> so they render only via <use>,
+         not a second time at their own definition point. -->
+    <g id="doc-icon" stroke="#2496ed" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 2h9l4 4v16a1 1 0 0 1-1 1H3.9a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z"/>
+      <path d="M12 2v4h4"/>
+      <line x1="6" y1="12" x2="14" y2="12"/>
+      <line x1="6" y1="15.5" x2="14" y2="15.5"/>
+      <line x1="6" y1="19" x2="11" y2="19"/>
+    </g>
+    <g id="bolt-icon" stroke="#f38020" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M13 2 L5 13.5h7l-1.2 8.5L18 10.5h-7z"/>
+    </g>
+    <g id="db-icon" stroke="#6e40c9" fill="none" stroke-width="1.4" stroke-linecap="round">
+      <ellipse cx="10" cy="4" rx="8" ry="3"/>
+      <path d="M2 4v14c0 1.7 3.6 3 8 3s8-1.3 8-3V4"/>
+      <path d="M2 11c0 1.7 3.6 3 8 3s8-1.3 8-3"/>
+    </g>
+    <g id="browser-icon" stroke="#3fb950" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="1" y="1" width="26" height="20" rx="2.5"/>
+      <line x1="1" y1="7" x2="27" y2="7"/>
+      <circle cx="5.5" cy="4" r="0.9" fill="#3fb950" stroke="none"/>
+      <circle cx="9" cy="4" r="0.9" fill="#3fb950" stroke="none"/>
+    </g>
+    <g id="search-icon" stroke="#9aa4b2" fill="none" stroke-width="1.6" stroke-linecap="round">
+      <circle cx="9" cy="9" r="6.5"/>
+      <line x1="14" y1="14" x2="20" y2="20"/>
+    </g>
   </defs>
 
-  <!-- Background -->
-  <rect width="720" height="400" rx="12" fill="url(#bg)"/>
-  <rect width="720" height="400" rx="12" fill="none" stroke="#30363d" stroke-width="1"/>
+  <rect width="620" height="480" rx="10" fill="#0a0d12"/>
+  <rect x="0.5" y="0.5" width="619" height="479" rx="10" fill="none" stroke="#1c222c" stroke-width="1"/>
 
   <!-- Title -->
-  <text x="360" y="30" text-anchor="middle" fill="#e6edf3" font-size="15" font-weight="700">Entra Errors — Architecture</text>
+  <text x="32" y="36" fill="#e6edf3" font-size="17" font-weight="600">AADSTS Entra Errors</text>
+  <text x="32" y="54" fill="#9aa4b2" font-size="11">349 error codes · Cloudflare Worker · cron every 6h</text>
+  <line x1="32" y1="68" x2="588" y2="68" stroke="#1c222c" stroke-width="1"/>
 
-  <!-- Microsoft Learn Box -->
-  <rect x="260" y="50" width="200" height="50" rx="8" fill="url(#ms)" opacity="0.15"/>
-  <rect x="260" y="50" width="200" height="50" rx="8" fill="none" stroke="#00a4ef" stroke-width="1.5"/>
-  <text x="360" y="72" text-anchor="middle" fill="#00a4ef" font-size="12" font-weight="600">Microsoft Learn</text>
-  <text x="360" y="90" text-anchor="middle" fill="#8b949e" font-size="10">Reference Error Codes Page</text>
+  <!-- SOURCE -->
+  <text x="32" y="90" fill="#9aa4b2" font-size="10" font-weight="600" letter-spacing="1.5">SOURCE</text>
+  <g transform="translate(200,98)">
+    <rect width="220" height="56" rx="7" fill="#12161d" stroke="#242b36"/>
+    <use href="#doc-icon" transform="translate(14,14)"/>
+    <text x="46" y="27" fill="#c9d1d9" font-weight="600" font-size="11">Microsoft Learn</text>
+    <text x="46" y="42" fill="#9aa4b2" font-size="8.5">Entra ID error-codes reference page</text>
+  </g>
 
-  <!-- Arrow: MS → Worker -->
-  <line x1="360" y1="100" x2="360" y2="130" stroke="#8b949e" stroke-width="1.5" marker-end="url(#arrowDown)"/>
+  <path d="M310,154 L310,178" stroke="#2c3542" stroke-width="1.2" fill="none" marker-end="url(#dot)"/>
 
-  <!-- Worker Box -->
-  <rect x="220" y="135" width="280" height="70" rx="8" fill="url(#worker)" opacity="0.12"/>
-  <rect x="220" y="135" width="280" height="70" rx="8" fill="none" stroke="#f58423" stroke-width="1.5"/>
-  <text x="360" y="158" text-anchor="middle" fill="#f58423" font-size="13" font-weight="700">Cloudflare Worker</text>
-  <text x="360" y="176" text-anchor="middle" fill="#e6edf3" font-size="10">entra-errors</text>
-  <text x="360" y="194" text-anchor="middle" fill="#8b949e" font-size="9">
-    <tspan fill="#f58423">fetch</tspan> + <tspan fill="#f58423">scheduled</tspan> · Cron 0 */6 * * *
-  </text>
+  <!-- PROCESSING -->
+  <text x="32" y="196" fill="#9aa4b2" font-size="10" font-weight="600" letter-spacing="1.5">PROCESSING</text>
+  <g transform="translate(32,204)">
+    <rect width="556" height="70" rx="8" fill="#151009" stroke="#3a2410"/>
+    <use href="#bolt-icon" transform="translate(18,17)"/>
+    <text x="48" y="32" fill="#f38020" font-size="13" font-weight="700">Cloudflare Worker</text>
+    <text x="48" y="48" fill="#9aa4b2" font-size="9.5">entra-errors · fetch + scheduled · parses, classifies, seeds fix hints</text>
+  </g>
 
-  <!-- Boxes side by side -->
-  <!-- KV Box (left) -->
-  <rect x="60" y="235" width="210" height="60" rx="8" fill="url(#kv)" opacity="0.12"/>
-  <rect x="60" y="235" width="210" height="60" rx="8" fill="none" stroke="#6e40c9" stroke-width="1.5"/>
-  <text x="165" y="258" text-anchor="middle" fill="#6e40c9" font-size="11" font-weight="700">KV: ENTRA_ERRORS</text>
-  <text x="165" y="276" text-anchor="middle" fill="#8b949e" font-size="9">codes · changelog · last_sync · health</text>
-  <text x="165" y="290" text-anchor="middle" fill="#484f58" font-size="8">~240 KB · 349 codes</text>
+  <path d="M180,274 L180,290 Q180,300 220,300 L220,314" stroke="#2c3542" stroke-width="1.1" fill="none" marker-end="url(#dot)"/>
+  <path d="M440,274 L440,311 Q440,314 420,314 L400,314" stroke="#2c3542" stroke-width="1.1" fill="none" marker-end="url(#dot)"/>
 
-  <!-- Pages Box (right) -->
-  <rect x="380" y="235" width="280" height="60" rx="8" fill="url(#pages)" opacity="0.12"/>
-  <rect x="380" y="235" width="280" height="60" rx="8" fill="none" stroke="#28a745" stroke-width="1.5"/>
-  <text x="520" y="258" text-anchor="middle" fill="#28a745" font-size="11" font-weight="700">Cloudflare Pages</text>
-  <text x="520" y="276" text-anchor="middle" fill="#8b949e" font-size="9">entraerrors.aboutcloud.io</text>
-  <text x="520" y="290" text-anchor="middle" fill="#8b949e" font-size="8">Fuse.js search · Dark theme · JSON-LD</text>
+  <!-- STORAGE + DELIVERY -->
+  <text x="32" y="308" fill="#9aa4b2" font-size="10" font-weight="600" letter-spacing="1.5">STORAGE</text>
+  <text x="368" y="308" fill="#9aa4b2" font-size="10" font-weight="600" letter-spacing="1.5">DELIVERY</text>
 
-  <!-- Arrow: Worker → KV, label offset to the side of the line (was sitting
-       directly on the stroke, low-contrast and barely legible) -->
-  <line x1="250" y1="185" x2="165" y2="233" stroke="#8b949e" stroke-width="1.2" marker-end="url(#arrow)"/>
-  <rect x="168" y="198" width="56" height="14" rx="4" fill="#0d1117" opacity="0.85"/>
-  <text x="196" y="208" text-anchor="middle" fill="#8b949e" font-size="8">read/write</text>
+  <g transform="translate(32,316)">
+    <rect width="248" height="60" rx="8" fill="#160f22" stroke="#2c1c42"/>
+    <use href="#db-icon" transform="translate(14,14) scale(0.85)"/>
+    <text x="44" y="29" fill="#8f7bdb" font-size="11.5" font-weight="700">KV: ENTRA_ERRORS</text>
+    <text x="44" y="43" fill="#9aa4b2" font-size="8.5">Codes · changelog · sync + health</text>
+    <text x="44" y="55" fill="#6b7684" font-size="8">~240 KB · 349 codes</text>
+  </g>
 
-  <!-- Arrow: Worker → Pages -->
-  <line x1="450" y1="185" x2="500" y2="233" stroke="#8b949e" stroke-width="1.2" marker-end="url(#arrow)"/>
-  <rect x="470" y="198" width="52" height="14" rx="4" fill="#0d1117" opacity="0.85"/>
-  <text x="496" y="208" text-anchor="middle" fill="#8b949e" font-size="8">API calls</text>
+  <g transform="translate(340,316)">
+    <rect width="248" height="60" rx="8" fill="#0a1710" stroke="#153322"/>
+    <use href="#browser-icon" transform="translate(14,15)"/>
+    <text x="52" y="29" fill="#3fb950" font-size="11.5" font-weight="700">Cloudflare Pages</text>
+    <text x="52" y="43" fill="#9aa4b2" font-size="8.5">entraerrors.aboutcloud.io</text>
+    <text x="52" y="55" fill="#6b7684" font-size="8">Fuse.js search · dark theme · JSON-LD</text>
+  </g>
 
-  <!-- Arrow: Pages → Users (was an 8px stub overlapping the Pages box itself;
-       Users box now sits fully below Pages with real clearance) -->
-  <line x1="520" y1="295" x2="520" y2="313" stroke="#8b949e" stroke-width="1.5" marker-end="url(#arrowDown)"/>
+  <!-- No KV->Pages connector: KV and Pages are both parallel children of
+       the Worker (cache write vs. static hosting), not a sequential
+       relationship. There's nothing real to draw between them. -->
+  <path d="M464,376 L464,408" stroke="#2c3542" stroke-width="1.1" fill="none" marker-end="url(#dot)"/>
 
-  <!-- Users -->
-  <rect x="475" y="318" width="90" height="46" rx="8" fill="url(#user)" opacity="0.12"/>
-  <rect x="475" y="318" width="90" height="46" rx="8" fill="none" stroke="#58a6ff" stroke-width="1.5"/>
-  <text x="520" y="340" text-anchor="middle" fill="#58a6ff" font-size="10" font-weight="600">🔍 Users</text>
-  <text x="520" y="358" text-anchor="middle" fill="#8b949e" font-size="8">Search · Filter</text>
-
-  <!-- QR-ish decoration -->
-  <circle cx="55" cy="55" r="3" fill="#30363d"/>
-  <circle cx="65" cy="55" r="3" fill="#30363d"/>
-  <circle cx="55" cy="65" r="3" fill="#30363d"/>
-  <circle cx="665" cy="55" r="3" fill="#30363d"/>
-  <circle cx="655" cy="55" r="3" fill="#30363d"/>
-  <circle cx="665" cy="65" r="3" fill="#30363d"/>
+  <!-- Users: given its own clear vertical band, well clear of both the
+       Delivery box above it and the footer below it. Previously these
+       three collided: Users' own text overlapped the footer caption,
+       and the bottom line was clipped by the card's rounded corner. -->
+  <g transform="translate(440,414)">
+    <use href="#search-icon" transform="translate(0,1) scale(0.8)"/>
+    <text x="24" y="11" fill="#c9d1d9" font-size="10.5" font-weight="600">Users</text>
+    <text x="24" y="24" fill="#9aa4b2" font-size="8">Search · filter · classify</text>
+  </g>
 
   <!-- Footer -->
-  <text x="360" y="388" text-anchor="middle" fill="#30363d" font-size="9">Auto-updated from Microsoft Learn · €0/month · Open Source</text>
+  <text x="310" y="462" text-anchor="middle" fill="#6b7684" font-size="9">Auto-updated from Microsoft Learn · €0/month · Open Source</text>
 </svg>
